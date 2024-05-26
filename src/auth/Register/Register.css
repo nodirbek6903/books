@@ -79,3 +79,8 @@
     text-transform: uppercase;
     letter-spacing: 2px;
   }
+  .reg-btn:disabled{
+    background: #ccc;
+    color: #fff;
+    cursor: not-allowed;
+  }
