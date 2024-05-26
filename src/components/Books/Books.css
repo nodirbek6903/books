@@ -104,7 +104,7 @@ button {
 }
 
 button.edit {
-  background-color: #17a2b8;
+  background-color: #f7cd36;
   color: #fff;
 }
 
@@ -114,7 +114,7 @@ button.delete {
 }
 
 button.edit:hover {
-  background-color: #138496;
+  background-color: #dc8904;
 }
 
 button.delete:hover {
