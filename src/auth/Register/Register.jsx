@@ -1,9 +1,8 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  signup } from "../authSlice/authSlice";
+import { signup } from "../authSlice/authSlice";
 import { FaEyeSlash, FaEye, FaRegUser, FaKey } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 
@@ -17,20 +16,23 @@ const Register = () => {
   const [isType, setIsType] = useState(true);
   const navigate = useNavigate();
 
-
   const handleTypeChange = () => {
     setIsType(!isType);
   };
 
-  if(error){
-    return <div>Error: {error}</div>
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signup({ name: firstname, email, key, secret }));
-    navigate("/");
+    dispatch(signup({ name: firstname, email, key, secret }))
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        // Handle error
+        console.error(error);
+      });
   };
+
   return (
     <div className="reg-container">
       <div className="form-container">
@@ -86,10 +88,7 @@ const Register = () => {
                 required
               />
               {isType ? (
-                <FaEyeSlash
-                  className="input-icons"
-                  onClick={handleTypeChange}
-                />
+                <FaEyeSlash className="input-icons" onClick={handleTypeChange} />
               ) : (
                 <FaEye className="input-icons" onClick={handleTypeChange} />
               )}
@@ -98,7 +97,7 @@ const Register = () => {
           <button type="submit" className="reg-btn" disabled={loading}>
             {loading ? "Sign Up..." : "Sign Up"}
           </button>
-          {error && <p>{error}</p>}
+          {error && <p className="error-message">{error}</p>}
         </form>
       </div>
     </div>

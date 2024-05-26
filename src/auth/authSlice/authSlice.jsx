@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 const host_url = "https://no23.lavina.tech";
 
 export const signup = createAsyncThunk(
-  "auth,signup",
+  "auth/signup",
   async ({ name, email, key, secret }, { rejectWithValue }) => {
     try {
       const hashedSecret = await bcrypt.hash(secret, 10);
@@ -23,35 +23,23 @@ export const signup = createAsyncThunk(
       });
 
       const data = await response.json();
-      if (response.isOk) {
+      if (response.ok) {
+        // token saqlash
+        localStorage.setItem("user", true)
         return data;
       }
+
+      if (response.status === 400 && data.error === "User with this key already exists" && data.isOk === false) {
+        return rejectWithValue("Key has already been used");
+      }
+
+      // Handle other types of errors
+      return rejectWithValue(data.error || "An unknown error occurred");
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message || "An unknown error occurred");
     }
   }
 );
-
-// export const signin = createAsyncThunk(
-//     "auth/signin",
-//     async (_, {rejectWithValue}) => {
-//         try {
-//             const response = await fetch(`${host_url}/myself`, {
-//                 method: "GET",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//             })
-//             if(response.ok){
-//                 const data = await response.json()
-//                 return data
-//                 // console.log(data)
-//             }
-//         } catch (error) {
-//             return rejectWithValue(error)
-//         }
-//     }
-// )
 
 const authSlice = createSlice({
   name: "auth",
@@ -60,11 +48,7 @@ const authSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {
-    logout: (state) => {
-      state.user = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(signup.pending, (state) => {
@@ -78,21 +62,8 @@ const authSlice = createSlice({
       .addCase(signup.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-    //   .addCase(signin.pending, (state) => {
-    //         state.loading = true
-    //         state.error = null
-    //   })
-    //   .addCase(signin.fulfilled, (state,action) => {
-    //         state.loading = false
-    //         state.user = action.payload
-    //   })
-    //   .addCase(signin.rejected, (state,action) => {
-    //         state.loading = false
-    //         state.error = action.payload
-    //   })
+      });
   },
 });
 
-export const { logout } = authSlice.actions;
 export default authSlice.reducer;
