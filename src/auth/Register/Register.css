@@ -1,0 +1,81 @@
+.reg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .form-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+  }
+  
+  .form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .reg-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .reg-form .inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .inputs label{
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .inputs div{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+    background: #fff;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .inputs input{
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: none;
+    background: none;
+  }
+  .inputs .input-icons{
+    font-size: 20px;
+  }
+  .name-input-icons .input-icons{
+    color: #555;
+  }
+  .email-input-icons .input-icons{
+    color: #F8AB07;
+  }
+  .key-input-icons  .input-icons{
+    color: rgb(70, 142, 238);
+  }
+  .password-input-icons .input-icons{
+    cursor: pointer;
+    color: #555;
+  }
+  .reg-btn{
+    background: rgb(70, 142, 238);;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
