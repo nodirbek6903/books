@@ -1,0 +1,87 @@
+.add-book-container {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+.add-form {
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  border-radius: 5px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+.back_and_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.back_and_title h1 {
+  color: #34D3DB;
+}
+.back_and_title .back-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+  background: #000;
+  color: #fff;
+}
+.adds {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.adds .forma-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  align-content: space-between;
+}
+.forma-inputs .form-label-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.forma-inputs .form-label-inputs label {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.forma-inputs .form-label-inputs input {
+  padding: 12px;
+  border: 1px solid #aaa;
+  outline: none;
+  border-radius: 10px;
+  background: none;
+  font-size: 18px;
+}
+.forma-inputs .form-label-inputs input::placeholder {
+  color: #aaa;
+}
+.adds button {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 100%;
+  background: #34D3DB;
+  color: #fff;
+  font-size: 25px;
+  transition: 0.5s all;
+  border: 1px solid #34D3DB;
+}
+.adds button:hover {
+  background: #fff;
+  color: #34D3DB;
+}

@@ -3,9 +3,11 @@ import "./Books.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchBooks } from "./BookSlice/BookSlice";
+import { useNavigate } from "react-router-dom";
 const Books = () => {
   const dispatch = useDispatch()
   const {books,loading,error} = useSelector((state) => state.books)
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchBooks())
@@ -16,6 +18,11 @@ const Books = () => {
   }
   if(error){
     return <div>{error}</div>
+  }
+  console.log(books);
+
+  const handleAddClick = () => {
+    navigate("/addbook")
   }
 
   return (
@@ -29,7 +36,7 @@ const Books = () => {
           />
           <FaSearch className="search-icons" />
         </div>
-        <button className="add-book">Add Book</button>
+        <button className="add-book" onClick={handleAddClick}>Add Book</button>
       </div>
       <div className="books-table">
         <table>
