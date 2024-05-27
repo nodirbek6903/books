@@ -5,7 +5,7 @@ import Register from "./auth/Register/Register";
 import AddBooks from "./components/AddBooks/AddBooks";
 
 function App() {
-  const token = localStorage.getItem("user");
+  const token = localStorage.getItem("Key");
   useEffect(() => {
     if (token) {
       console.log("User is logged in");

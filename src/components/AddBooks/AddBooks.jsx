@@ -31,8 +31,7 @@ const AddBooks = () => {
     };
     try {
       dispatch(addBook(newBook));
-      // navigate("/");
-      console.log(newBook);
+      navigate("/");
       console.log("Book added successfully");
     } catch (error) {
       console.error("Failed to add book:", error);

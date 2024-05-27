@@ -2,25 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import CryptoJS from "crypto-js";
 
-const host_url = " https://no23.lavina.tech";
-
-const loadUser = () => {
-  try {
-    const serializedUser = localStorage.getItem("user");
-    if (serializedUser === null) {
-      return null;
-    }
-    return JSON.parse(serializedUser);
-  } catch (error) {
-    return null;
-  }
-};
+const host_url = "https://no23.lavina.tech";
 
 export const signup = createAsyncThunk(
   "auth/signup",
   async (userData, { rejectWithValue }) => {
     try {
-      const hashedSecret = CryptoJS.SHA256(userData.secret).toString(
+      const hashedSecret = CryptoJS.MD5(userData.secret).toString(
         CryptoJS.enc.Hex
       );
       const response = await axios.post(
@@ -38,13 +26,10 @@ export const signup = createAsyncThunk(
             Sign: hashedSecret,
           },
         }
-      );
-      //user malumotlarini saqlash
-      const userToSave = {
-        key: userData.key,
-        sign: hashedSecret,
-      };
-      localStorage.setItem("user", JSON.stringify(userToSave));
+      );      
+      localStorage.setItem("Key", userData.key);
+      localStorage.setItem("Secret", userData.secret);
+      localStorage.setItem("Sign", hashedSecret);
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -58,7 +43,7 @@ export const signup = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: loadUser(),
+    user: null,
     loading: false,
     error: null,
   },

@@ -2,7 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import "./Books.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchBooks } from "./BookSlice/BookSlice";
+import { fetchBooks,deleteBooks } from "./BookSlice/BookSlice";
 import { useNavigate } from "react-router-dom";
 const Books = () => {
   const dispatch = useDispatch()
@@ -19,10 +19,14 @@ const Books = () => {
   if(error){
     return <div>{error}</div>
   }
-  console.log(books);
+  // console.log(books);
 
   const handleAddClick = () => {
     navigate("/addbook")
+  }
+
+  const handleDeleteBooks = (id) => {
+    dispatch(deleteBooks(id))
   }
 
   return (
@@ -66,70 +70,10 @@ const Books = () => {
                 <td>{book.pages}</td>
                 <td>
                   <button className="edit">Edit</button>
-                  <button className="delete">Delete</button>
+                  <button className="delete" onClick={handleDeleteBooks(book.id)}>Delete</button>
                 </td>
               </tr>
             ))}
-             {/* <tr>
-              <td>1</td>
-              <td>9781118464465</td>
-              <td>Raspberry Pi User Guide</td>
-              <td>
-                <img
-                  src="http://url.to.book.cover"
-                  width={50}
-                  height={50}
-                  alt="Images"
-                />
-              </td>
-              <td>Eben Upton</td>
-              <td>2012</td>
-              <td>221</td>
-              <td>
-                <button className="edit">Edit</button>
-                <button className="delete">Delete</button>
-              </td>
-            </tr> 
-             <tr>
-              <td>1</td>
-              <td>9781118464465</td>
-              <td>Raspberry Pi User Guide</td>
-              <td>
-                <img
-                  src="http://url.to.book.cover"
-                  width={50}
-                  height={50}
-                  alt="Images"
-                />
-              </td>
-              <td>Eben Upton</td>
-              <td>2012</td>
-              <td>221</td>
-              <td>
-                <button className="edit">Edit</button>
-                <button className="delete">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>9781118464465</td>
-              <td>Raspberry Pi User Guide</td>
-              <td>
-                <img
-                  src="http://url.to.book.cover"
-                  width={50}
-                  height={50}
-                  alt="Images"
-                />
-              </td>
-              <td>Eben Upton</td>
-              <td>2012</td>
-              <td>221</td>
-              <td>
-                <button className="edit">Edit</button>
-                <button className="delete">Delete</button>
-              </td>
-            </tr>  */}
           </tbody>
         </table>
       </div>
