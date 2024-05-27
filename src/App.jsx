@@ -21,7 +21,6 @@ function App() {
         ) : (
           <Route path="/signup" element={<Register />} />
         )}
-        {/* <Route path="/signup" element={<Register />} /> */}
       </Routes>
     </>
   );

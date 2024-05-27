@@ -2,26 +2,22 @@ import { FaSearch } from "react-icons/fa";
 import "./Books.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { deleteBooks, fetchBooks } from "./BookSlice/BookSlice";
+import { fetchBooks } from "./BookSlice/BookSlice";
 const Books = () => {
-  const dispatch = useDispatch();
-  const { books, error, loading } = useSelector((state) => state.books);
+  const dispatch = useDispatch()
+  const {books,loading,error} = useSelector((state) => state.books)
 
-  useEffect(() =>{
+  useEffect(() => {
     dispatch(fetchBooks())
   },[dispatch])
 
-
-  const handleDelete = (id) => {
-    dispatch(deleteBooks(id))
-  }
-
-  if(loading){
-    return <h1>Loading...</h1>
+  if(loading) {
+    return <div>Loading...</div>
   }
   if(error){
-    return <h1>{error}</h1>
+    return <div>{error}</div>
   }
+
   return (
     <div className="books-container">
       <div className="search-add">
@@ -50,31 +46,24 @@ const Books = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              books.map((book,index) => (
-                <tr key={book.id}>
-                  <td>{index+1}</td>
-                  <td>{book.isbn}</td>
-                  <td>{book.title}</td>
-                  <td>
-                    <img
-                      src={book.cover}
-                      width={50}
-                      height={50}
-                      alt="Images"
-                    />
-                  </td>
-                  <td>{book.author}</td>
-                  <td>{book.published}</td>
-                  <td>{book.pages}</td>
-                  <td>
-                    <button className="edit">Edit</button>
-                    <button className="delete" onClick={() => handleDelete(book.id)}>Delete</button>
-                  </td>
-                </tr>
-              ))
-            }
-            {/* <tr>
+          {books.map((book, index) => (
+              <tr key={book.id}>
+                <td>{index + 1}</td>
+                <td>{book.isbn}</td>
+                <td>{book.title}</td>
+                <td>
+                  <img src={book.cover} width={50} height={50} alt="Images" />
+                </td>
+                <td>{book.author}</td>
+                <td>{book.published}</td>
+                <td>{book.pages}</td>
+                <td>
+                  <button className="edit">Edit</button>
+                  <button className="delete">Delete</button>
+                </td>
+              </tr>
+            ))}
+             {/* <tr>
               <td>1</td>
               <td>9781118464465</td>
               <td>Raspberry Pi User Guide</td>
@@ -93,8 +82,8 @@ const Books = () => {
                 <button className="edit">Edit</button>
                 <button className="delete">Delete</button>
               </td>
-            </tr> */}
-            {/* <tr>
+            </tr> 
+             <tr>
               <td>1</td>
               <td>9781118464465</td>
               <td>Raspberry Pi User Guide</td>
@@ -133,7 +122,7 @@ const Books = () => {
                 <button className="edit">Edit</button>
                 <button className="delete">Delete</button>
               </td>
-            </tr> */}
+            </tr>  */}
           </tbody>
         </table>
       </div>

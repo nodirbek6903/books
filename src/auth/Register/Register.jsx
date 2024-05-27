@@ -7,14 +7,16 @@ import "./Register.css";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [firstname, setFirstname] = useState("");
-  const [email, setEmail] = useState("");
-  const [key, setKey] = useState("");
-  const [secret, setSecret] = useState("");
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
   const [isType, setIsType] = useState(true);
+  const [firstname,setFirstname] = useState("")
+  const [email,setEmail] = useState("")
+  const [key,setKey] = useState("")
+  const [secret,setSecret] = useState("")
   const navigate = useNavigate();
+  
+
 
   const handleTypeChange = () => {
     setIsType(!isType);
@@ -22,15 +24,13 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signup({ name: firstname, email, key, secret }))
-      .unwrap()
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        // Handle error
-        console.error(error);
-      });
+    dispatch(signup({
+      name: firstname,
+      email: email,
+      key: key,
+      secret: secret
+    }));
+    navigate("/");
   };
 
   return (
@@ -88,7 +88,10 @@ const Register = () => {
                 required
               />
               {isType ? (
-                <FaEyeSlash className="input-icons" onClick={handleTypeChange} />
+                <FaEyeSlash
+                  className="input-icons"
+                  onClick={handleTypeChange}
+                />
               ) : (
                 <FaEye className="input-icons" onClick={handleTypeChange} />
               )}
