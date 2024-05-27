@@ -42,7 +42,6 @@ export const addBook = createAsyncThunk(
       const url = "/books";
       const method = "POST";
       const sign = generateSignature(method, url, newBook, secret);
-      console.log(sign);
       const response = await axios.post(`${host_url}${url}`, newBook, {
         headers: {
           "Content-Type": "application/json",

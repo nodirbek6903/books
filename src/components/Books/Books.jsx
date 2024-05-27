@@ -19,7 +19,7 @@ const Books = () => {
   if(error){
     return <div>{error}</div>
   }
-  // console.log(books);
+  console.log(books);
 
   const handleAddClick = () => {
     navigate("/addbook")
