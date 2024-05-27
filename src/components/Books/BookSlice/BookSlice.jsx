@@ -8,9 +8,8 @@ const key = localStorage.getItem("Key");
 const secret = localStorage.getItem("Secret");
 
 const generateSignature = (method, url, body, secret) => {
-  const bodyString = JSON.stringify(body);
-  const stringToSign = `${method}${url}${bodyString}${secret}`;
-  console.log(`String to sign: ${stringToSign}`);
+  const body_string = JSON.stringify(body);
+  const stringToSign = `${method}${url}${body_string}${secret}`;
   return CryptoJS.MD5(stringToSign).toString();
 };
 
