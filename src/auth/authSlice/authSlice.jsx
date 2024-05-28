@@ -47,7 +47,14 @@ const authSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem("Key");
+      localStorage.removeItem("Secret");
+      localStorage.removeItem("Sign");
+      state.user = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signup.pending, (state) => {
@@ -64,5 +71,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { logout } = authSlice.actions; 
 
 export default authSlice.reducer;
