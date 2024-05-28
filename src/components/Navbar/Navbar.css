@@ -1,0 +1,19 @@
+.navbar-container {
+  width: 100%;
+  max-width: 1920px;
+  height: 70px;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  right: 0;
+}
+.navbars {
+  width: 100%;
+  display: flex;
+  margin-right: 50px;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-end;
+}

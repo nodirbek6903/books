@@ -41,7 +41,6 @@ const EditBooks = () => {
         alert("Error updating book");
         return false;
       }
-      console.log("edit qilinadigan book",response);
       console.log("Book successfully updated");
       navigate("/");
     } catch (error) {

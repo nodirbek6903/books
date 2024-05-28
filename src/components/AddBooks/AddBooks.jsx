@@ -23,7 +23,7 @@ const AddBooks = () => {
   };
 
   const sendBooks = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const method = "POST";
       const body = {
@@ -40,16 +40,19 @@ const AddBooks = () => {
         },
         body: JSON.stringify(body),
       });
-      if(response.status === 500) {
-        alert("Bu kitob allaqachon qo'shilgan")
-        return false
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log("data muvaffaqqiyatli qoshildi", data);
+      }
+      if (response.status === 500) {
+        alert("Bunday kitob allaqachon mavjud");
+        return false;
       }
       navigate("/");
     } catch (error) {
       console.error("Error fetching books:", error);
     }
   };
-
 
   return (
     <div className="add-book-container">

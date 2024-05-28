@@ -33,7 +33,6 @@ const Books = () => {
       }
       const data = await response.json();
       setBooks(data.data);
-      console.log("data muvaffaqqiyatli olingan", data);
     } catch (error) {
       console.error("Error fetching books:", error);
     }
@@ -67,7 +66,6 @@ const Books = () => {
       }
 
       fetchBooks();
-      console.log("data muvaffaqqiyatli o'chirildi");
     } catch (error) {
       console.error("Error deleting book:", error);
     }

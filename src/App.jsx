@@ -4,7 +4,7 @@ import Books from "./components/Books/Books";
 import Register from "./auth/Register/Register";
 import AddBooks from "./components/AddBooks/AddBooks";
 import EditBooks from "./components/EditBooks/EditBooks";
-
+import Navbar from "./components/Navbar/Navbar";
 function App() {
   const token = localStorage.getItem("Key");
   useEffect(() => {
@@ -17,6 +17,7 @@ function App() {
 
   return (
     <>
+    <Navbar />
       <Routes>
         {token ? (
           <>
