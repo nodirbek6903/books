@@ -1,42 +1,55 @@
 import { useNavigate } from "react-router-dom";
 import "./AddBooks.css";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import CryptoJS from "crypto-js";
 import { useState } from "react";
-import { addBook } from "../Books/BookSlice/BookSlice";
 const AddBooks = () => {
-  const [title, setTitle] = useState("");
   const [isbn, setIsbn] = useState("");
-  const [author, setAuthor] = useState("");
-  const [published, setPublished] = useState("");
-  const [pages, setPages] = useState("");
-  const [cover, setCover] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const host_url = "https://no23.lavina.tech";
 
   const handleBackBooks = () => {
     navigate("/");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const key = localStorage.getItem("Key");
+  const secret = localStorage.getItem("Sign");
 
-    const newBook = {
-      isbn:isbn,
-      title:title,
-      author:author,
-      published:published,
-      pages:pages,
-      cover:cover,
-    };
+  const generateSignature = (method, url, body, secret) => {
+    const body_string = JSON.stringify(body);
+    const stringToSign = `${method}${url}${body_string}${secret}`;
+    const signature = CryptoJS.MD5(stringToSign).toString();
+    return signature;
+  };
+
+  const sendBooks = async (e) => {
+    e.preventDefault()
     try {
-      dispatch(addBook(newBook));
+      const method = "POST";
+      const body = {
+        isbn: isbn,
+      };
+      const url = "/books";
+      const sign = generateSignature(method, url, body, secret);
+      const response = await fetch(`${host_url}/books`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Key: key,
+          Sign: sign,
+        },
+        body: JSON.stringify(body),
+      });
+      if(response.status === 500) {
+        alert("Bu kitob allaqachon qo'shilgan")
+        return false
+      }
       navigate("/");
-      console.log("Book added successfully");
     } catch (error) {
-      console.error("Failed to add book:", error);
+      console.error("Error fetching books:", error);
     }
   };
+
 
   return (
     <div className="add-book-container">
@@ -47,7 +60,7 @@ const AddBooks = () => {
             <IoMdArrowRoundBack /> Back
           </button>
         </div>
-        <form action="" onSubmit={handleSubmit} className="adds">
+        <form action="" onSubmit={sendBooks} className="adds">
           <div className="forma-inputs">
             <div className="form-label-inputs">
               <label htmlFor="isbn">ISBN</label>
@@ -57,60 +70,6 @@ const AddBooks = () => {
                 value={isbn}
                 onChange={(e) => setIsbn(e.target.value)}
                 placeholder="Isbn"
-                required
-              />
-            </div>
-            <div className="form-label-inputs">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                id="title"
-                required
-              />
-            </div>
-            <div className="form-label-inputs">
-              <label htmlFor="author">Author</label>
-              <input
-                type="text"
-                placeholder="Author"
-                value={author}
-                onChange={(e) => setAuthor(e.target.value)}
-                id="author"
-                required
-              />
-            </div>
-            <div className="form-label-inputs">
-              <label htmlFor="published">Published</label>
-              <input
-                type="text"
-                placeholder="Published"
-                id="published"
-                value={published}
-                onChange={(e) => setPublished(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-label-inputs">
-              <label htmlFor="pages">Pages</label>
-              <input
-                type="text"
-                placeholder="Pages"
-                value={pages}
-                onChange={(e) => setPages(e.target.value)}
-                id="pages"
-                required
-              />
-            </div>
-            <div className="form-label-inputs">
-              <label htmlFor="cover">Cover</label>
-              <input
-                type="file"
-                placeholder="Cover"
-                onChange={(e) => setCover(e.target.files[0])}
-                id="cover"
                 required
               />
             </div>
